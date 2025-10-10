@@ -1,7 +1,26 @@
 [project]
-name = "ops-ai-cortex"
+name = "ops_ai_cortex"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI-driven DevOps intelligence platform"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+
+dependencies = [
+  "fastapi",
+  "langchain",
+  "redis",
+  "psycopg2-binary",
+  "anthropic",
+  "openai",
+  "pydantic",
+]
+
+[tool.uv]
+dev-dependencies = [
+  "pytest",
+  "black",
+  "ruff",
+  "mypy",
+  "httpx",
+  "pytest-asyncio"
+]
