@@ -13,6 +13,7 @@ dependencies = [
   "anthropic",
   "openai",
   "pydantic",
+  "uvicorn",
 ]
 
 [tool.uv]
@@ -24,3 +25,7 @@ dev-dependencies = [
   "httpx",
   "pytest-asyncio"
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,93 @@
+name: CI / CD Pipeline – OpsAICortex
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Build & Test (Python + Go)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ops_ai_cortex
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ---------- Python Setup ----------
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Sync Dependencies
+        run: uv sync --dev
+
+      - name: Lint with Ruff
+        run: uv run ruff check src/
+
+      - name: Type Check with MyPy
+        run: uv run mypy src/
+
+      - name: Run Unit Tests
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ops_ai_cortex
+          REDIS_URL: redis://localhost:6379/0
+        run: uv run pytest -v --disable-warnings
+
+      # ---------- Go Setup ----------
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+
+      - name: Go Build
+        run: go build -v ./src/ops_ai_cortex/go_services/...
+
+      - name: Go Test
+        run: go test -v ./src/ops_ai_cortex/go_services/...
+
+      # ---------- Optional Future Steps ----------
+      # These can be enabled later for AWS App Runner CI/CD integration
+
+      # - name: Build Docker Image
+      #   run: |
+      #     docker build -t ops_ai_cortex:latest .
+
+      # - name: Deploy to AWS App Runner
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: aws-actions/amazon-app-runner-deploy@v2
+      #   with:
+      #     service: "OpsAICortex"
+      #     source-directory: "."
+      #     region: "us-east-1"
+      #     access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     wait-for-service-stability: true
