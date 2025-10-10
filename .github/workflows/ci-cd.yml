@@ -69,10 +69,12 @@ jobs:
           go-version: "1.23"
 
       - name: Go Build
-        run: go build -v ./src/ops_ai_cortex/go_services/...
+        working-directory: src/ops_ai_cortex/go_services
+        run: go build -v .
 
       - name: Go Test
-        run: go test -v ./src/ops_ai_cortex/go_services/...
+        working-directory: src/ops_ai_cortex/go_services
+        run: go test -v ./...
 
       # ---------- Optional Future Steps ----------
       # These can be enabled later for AWS App Runner CI/CD integration
