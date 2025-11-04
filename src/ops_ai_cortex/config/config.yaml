@@ -1,0 +1,42 @@
+# config/config.yaml
+# Unified YAML configuration for OpsAICortex
+
+ai:
+  default_provider: "claude"
+  providers:
+    claude:
+      temperature: 0.3
+      max_tokens: 1024
+    gpt4:
+      temperature: 0.2
+      max_tokens: 2048
+
+notifications:
+  slack:
+    enabled: true
+    format: "detailed"
+  teams:
+    enabled: false
+    format: "concise"
+
+features:
+  summarization_cache: true
+  prompt_trace_logging: true
+  correlation_engine: true
+
+dashboard:
+  theme: "dark"
+  show_ai_metrics: true
+
+# 🔐 Authentication and Authorization
+auth:
+  jwt:
+    algorithm: "HS256"
+    access_token_expire_minutes: 60
+  password_policy:
+    min_length: 12
+    require_special: true
+    require_uppercase: true
+  oauth2:
+    github_enabled: true
+    slack_enabled: false

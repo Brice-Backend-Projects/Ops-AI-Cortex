@@ -1,11 +1,12 @@
 # 🧠 OpsAICortex  
 ## AI-Driven Operational Intelligence and Coordination Platform
 
-[![Build Status](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml)
-![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
-![Go Version](https://img.shields.io/badge/go-1.23-lightblue.svg)
-![Status](https://img.shields.io/badge/status-in%20development-orange)
-[![CI / CD Pipeline – OpsAICortex](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml)
+| Branch | Build Status | Python | Go | Project Status |
+|---------|---------------|--------|----|----------------|
+| **main** | ![Main Build](https://img.shields.io/github/actions/workflow/status/Brice-Backend-Projects/OpsAICortex/ci-cd.yml?branch=main&label=main%20build) | ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg) | ![Go Version](https://img.shields.io/badge/go-1.23-lightblue.svg) | ![Status](https://img.shields.io/badge/status-in%20development-orange) |
+| **dev** | ![Dev Build](https://img.shields.io/github/actions/workflow/status/Brice-Backend-Projects/OpsAICortex/ci-cd.yml?branch=dev&label=dev%20build) |  |  |  |
+
+
 
 ---
 
