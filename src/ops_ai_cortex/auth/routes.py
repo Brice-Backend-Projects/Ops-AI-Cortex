@@ -1,12 +1,18 @@
-""" auth/routes.py"""
+"""
+auth/routes.py
+--------------
+Authentication routes for OpsAICortex.
+"""
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+
 from ops_ai_cortex.core.db import get_db
 from ops_ai_cortex.auth import schemas, utils, models
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
+
 
 @router.post("/register", response_model=schemas.UserRead)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -26,7 +32,11 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 def login(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if not db_user or not utils.verify_password(user.password, db_user.hashed_password):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials"
+        )
 
     access_token = utils.create_access_token({"sub": db_user.email})
     return {"access_token": access_token, "token_type": "bearer"}
+

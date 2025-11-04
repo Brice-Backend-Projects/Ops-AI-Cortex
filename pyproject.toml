@@ -28,7 +28,10 @@ dev-dependencies = [
   "ruff",
   "mypy",
   "httpx",
-  "pytest-asyncio"
+  "pytest-asyncio",
+  "types-pyyaml>=6.0.12.20250915",
+  "types-passlib>=1.7.7.20250602",
+  "types-python-jose>=3.5.0.20250531",
 ]
 
 [tool.pytest.ini_options]

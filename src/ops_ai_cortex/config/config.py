@@ -5,58 +5,35 @@ Combines .env secrets, YAML structured config, and pydantic validation.
 """
 
 from pathlib import Path
-from typing import Any, Dict, Optional
-from pydantic import BaseSettings, Field
+from typing import Optional
+
 import yaml
+from pydantic import BaseModel, Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Type-safe environment configuration."""
-    APP_NAME: str = "OpsAICortex"
-    DEBUG: bool = True
-    ENVIRONMENT: str = Field("development", env="ENVIRONMENT")
+    """
+    Application settings loaded from environment variables or .env file.
+    """
 
-    # Database / Redis
-    DATABASE_URL: str = Field(..., env="DATABASE_URL")
-    REDIS_URL: str = Field(..., env="REDIS_URL")
+    app_name: str = Field(default="OpsAICortex", description="Application name")
+    environment: str = Field(default="development", description="Environment name")
+    database_url: str = Field(default="postgresql://user:pass@localhost/db", description="Database connection URL")
 
-    # AI providers
-    AI_PROVIDER: str = Field("claude", env="AI_PROVIDER")
-    CLAUDE_API_KEY: Optional[str] = None
-    OPENAI_API_KEY: Optional[str] = None
-
-    # Integrations
-    SLACK_WEBHOOK_URL: Optional[str] = None
-    GITHUB_TOKEN: Optional[str] = None
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigModel = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
-def load_yaml_config(path: str = "src/ops_ai_cortex/core/config.yaml") -> Dict[str, Any]:
-    """Load structured YAML configuration (non-secrets)."""
-    yaml_path = Path(path)
-    if not yaml_path.exists():
-        raise FileNotFoundError(f"Missing YAML config: {yaml_path}")
-    with open(yaml_path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or {}
+def load_yaml_config(file_path: str = "src/ops_ai_cortex/config/config.yaml") -> dict:
+    """
+    Load YAML configuration file safely.
+    """
+    path = Path(file_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {file_path}")
+    with path.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 
-# Instantiate settings and merge layers
 settings = Settings()
 yaml_config = load_yaml_config()
-
-# Optional merged accessor
-def get_config() -> Dict[str, Any]:
-    """
-    Merge YAML + env settings into one dict.
-    Environment variables override YAML where conflicts occur.
-    """
-    merged = {**yaml_config, **settings.dict()}
-    return merged
-
-
-# Example usage:
-# from core.config import settings, yaml_config, get_config
-# print(settings.DATABASE_URL)
