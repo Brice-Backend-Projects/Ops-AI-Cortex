@@ -1,7 +1,6 @@
 """auth/models.py"""
 
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 from ops_ai_cortex.core.db import Base  # adjust import if needed
 
 class User(Base):

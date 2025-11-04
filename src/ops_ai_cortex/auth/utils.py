@@ -1,7 +1,7 @@
 """auth/utils.py"""
 
 from datetime import datetime, timedelta
-from jose import jwt, JWTError
+from jose import jwt
 from passlib.context import CryptContext
 from ops_ai_cortex.config.config import settings, yaml_config
 

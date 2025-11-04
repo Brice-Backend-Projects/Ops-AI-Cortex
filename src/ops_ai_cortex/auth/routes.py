@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from ops_ai_cortex.core.db import get_db
 from ops_ai_cortex.auth import schemas, utils, models
-from ops_ai_cortex.config.config import settings
+
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
