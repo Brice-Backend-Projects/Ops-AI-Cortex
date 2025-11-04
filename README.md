@@ -1,13 +1,11 @@
 # 🧠 OpsAICortex  
 ## AI-Driven Operational Intelligence and Coordination Platform
 
-# 🧠 OpsAICortex  
-## AI-Driven Operational Intelligence and Coordination Platform
-
 | Branch | Build Status | Python | Go | Project Status |
 |---------|---------------|--------|----|----------------|
 | **main** | [![Main Build](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml) | ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg) | ![Go Version](https://img.shields.io/badge/go-1.23-lightblue.svg) | ![Status](https://img.shields.io/badge/status-in%20development-orange) |
-| **dev** | [![Dev Build](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml/badge.svg?branch=dev)](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml) | – | – | – |
+| **dev** | [![Dev Build](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml/badge.svg?branch=dev&event=push)](https://github.com/Brice-Backend-Projects/OpsAICortex/actions/workflows/ci-cd.yml)
+ | – | – | – |
 
 
 ---
