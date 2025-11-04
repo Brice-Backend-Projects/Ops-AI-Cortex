@@ -5,10 +5,10 @@ Combines .env secrets, YAML structured config, and pydantic validation.
 """
 
 from pathlib import Path
-from typing import Optional
+
 
 import yaml
-from pydantic import BaseModel, Field
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
