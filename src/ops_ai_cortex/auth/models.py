@@ -1,12 +1,12 @@
 """auth/models.py"""
 
 from sqlalchemy import Column, Integer, String
-from ops_ai_cortex.core.db import Base  # adjust import if needed
+from ops_ai_cortex.core.db import Base
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    role = Column(String, default="viewer")
+    id: int = Column(Integer, primary_key=True, index=True)
+    email: str = Column(String, unique=True, index=True, nullable=False)
+    hashed_password: str = Column(String, nullable=False)
+
