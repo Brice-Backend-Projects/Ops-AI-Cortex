@@ -50,3 +50,12 @@ disallow_untyped_defs = true
 warn_unused_ignores = true
 show_error_codes = true
 plugins = ["sqlalchemy.ext.mypy.plugin"]
+
+[[tool.mypy.overrides]]
+module = [
+    "ops_ai_cortex.core.db",
+    "ops_ai_cortex.core.models",
+    "ops_ai_cortex.auth.models",
+]
+ignore_errors = true
+

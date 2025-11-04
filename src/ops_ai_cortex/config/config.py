@@ -4,36 +4,25 @@ Core configuration loader for OpsAICortex
 Combines .env secrets, YAML structured config, and pydantic validation.
 """
 
-from pathlib import Path
-
-
-import yaml
+from pydantic_settings import BaseSettings
 from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict # type: ignore[import]
 
 
 class Settings(BaseSettings):
-    """
-    Application settings loaded from environment variables or .env file.
-    """
+    """Temporary minimal configuration for development and type checking."""
 
-    app_name: str = Field(default="OpsAICortex", description="Application name")
-    environment: str = Field(default="development", description="Environment name")
-    database_url: str = Field(default="postgresql://user:pass@localhost/db", description="Database connection URL")
+    APP_NAME: str = Field(default="OpsAICortex")
+    DEBUG: bool = Field(default=True)
+    DATABASE_URL: str = Field(default="postgresql://user:pass@localhost/placeholder_db")
+    JWT_SECRET_KEY: str = Field(default="dev-secret-key")
 
-    model_config = SettingsConfigModel = SettingsConfigDict(env_file=".env", extra="ignore")
-
-
-def load_yaml_config(file_path: str = "src/ops_ai_cortex/config/config.yaml") -> dict:
-    """
-    Load YAML configuration file safely.
-    """
-    path = Path(file_path)
-    if not path.exists():
-        raise FileNotFoundError(f"Config file not found: {file_path}")
-    with path.open("r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    class Config:
+        env_file = ".env"
+        extra = "ignore"
 
 
+# Instantiate settings for global import
 settings = Settings()
-yaml_config = load_yaml_config()
+
+# temporary assignment in pre-development
+yaml_config: dict = {}

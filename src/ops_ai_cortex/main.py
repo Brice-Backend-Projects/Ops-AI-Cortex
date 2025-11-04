@@ -1,13 +1,15 @@
-# src/ops_ai_cortex/main.py
+"""
+main.py
+-------
+Main application factory.
+"""
+
 from fastapi import FastAPI
-from ops_ai_cortex.config.config import settings, yaml_config
 
-app = FastAPI(title=settings.APP_NAME, debug=settings.DEBUG)
-
-@app.get("/health")
-def health_check():
-    return {
-        "app": settings.APP_NAME,
-        "environment": settings.ENVIRONMENT,
-        "ai_default": yaml_config.get("ai", {}).get("default_provider"),
-    }
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title="OpsAICortex",
+        version="0.1.0",
+        description="AI-Driven Operational Intelligence Platform",
+    )
+    return app
