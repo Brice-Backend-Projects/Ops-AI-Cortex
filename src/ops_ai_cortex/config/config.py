@@ -9,7 +9,7 @@ from pathlib import Path
 
 import yaml
 from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict # type: ignore[import]
 
 
 class Settings(BaseSettings):

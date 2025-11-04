@@ -1,6 +1,6 @@
 # src/ops_ai_cortex/main.py
 from fastapi import FastAPI
-from config.config import settings, yaml_config
+from ops_ai_cortex.config import settings
 
 app = FastAPI(title=settings.APP_NAME, debug=settings.DEBUG)
 

@@ -7,12 +7,13 @@ Reusable authentication dependencies for route protection.
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
+
 from ops_ai_cortex.auth.models import User
 from ops_ai_cortex.core.db import get_db
 from ops_ai_cortex.config.config import settings, yaml_config
 
 
-def get_current_user(token: str, db: Session = Depends(get_db)):
+def get_current_user(token: str, db: Session = Depends(get_db)) -> User:
     """Validate JWT and return current user from DB."""
     SECRET_KEY = settings.JWT_SECRET_KEY
     ALGORITHM = yaml_config["auth"]["jwt"]["algorithm"]
@@ -25,8 +26,8 @@ def get_current_user(token: str, db: Session = Depends(get_db)):
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
+        email = payload.get("sub")
+        if not isinstance(email, str):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
@@ -36,3 +37,4 @@ def get_current_user(token: str, db: Session = Depends(get_db)):
         raise credentials_exception
 
     return user
+
