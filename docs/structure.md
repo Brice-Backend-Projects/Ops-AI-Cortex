@@ -5,11 +5,29 @@ ops_ai_cortex/
 ├── src/
 │   └── ops_ai_cortex/
 │       ├── api/
+│       │   └── __init__.py
 │       ├── agents/
+│       │   └── __init__.py
+│       ├── auth/
+│       │   ├── __init__.py
+│       │   ├── models.py
+│       │   ├── schemas.py
+│       │   ├── utils.py
+│       │   ├── dependencies.py
+│       │   └── routes.py
+│       ├── config/
+│       │   ├── __init__.py
+│       │   ├── config.py
+│       │   └── config.yaml
 │       ├── go_services/
+│       │   ├── go.mod
+│       │   └── main.go
 │       ├── core/
+│       │   └── __init__.py
 │       ├── utils/
-│       └── __init__.py
+│       │   └── __init__.py
+│       ├── __init__.py
+│       └── main.py
 │
 ├── notebooks/
 │   ├── 00_prompt_experiments.ipynb
